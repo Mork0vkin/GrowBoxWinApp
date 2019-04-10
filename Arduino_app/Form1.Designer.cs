@@ -31,16 +31,20 @@
             this.components = new System.ComponentModel.Container();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_upd_com = new System.Windows.Forms.Button();
             this.btn_open_com = new System.Windows.Forms.Button();
             this.cmbx_speed_com = new System.Windows.Forms.ComboBox();
             this.cmbx_select_com = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_disp = new System.Windows.Forms.Button();
-            this.btn_upd_com = new System.Windows.Forms.Button();
+            this.btn_send_com = new System.Windows.Forms.Button();
+            this.txbx_send_com = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -52,22 +56,9 @@
             this.richTextBox1.TabIndex = 5;
             this.richTextBox1.Text = "";
             // 
-            // serialPort1
-            // 
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(684, 307);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
-            // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox2.Controls.Add(this.btn_upd_com);
             this.groupBox2.Controls.Add(this.btn_open_com);
             this.groupBox2.Controls.Add(this.cmbx_speed_com);
@@ -81,6 +72,16 @@
             this.groupBox2.Size = new System.Drawing.Size(684, 44);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
+            // 
+            // btn_upd_com
+            // 
+            this.btn_upd_com.Location = new System.Drawing.Point(12, 13);
+            this.btn_upd_com.Name = "btn_upd_com";
+            this.btn_upd_com.Size = new System.Drawing.Size(75, 25);
+            this.btn_upd_com.TabIndex = 13;
+            this.btn_upd_com.Text = "Обновить";
+            this.btn_upd_com.UseVisualStyleBackColor = true;
+            this.btn_upd_com.Click += new System.EventHandler(this.btn_upd_com_Click);
             // 
             // btn_open_com
             // 
@@ -116,7 +117,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Location = new System.Drawing.Point(246, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
@@ -126,7 +127,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(113, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
@@ -143,23 +144,51 @@
             this.btn_disp.UseVisualStyleBackColor = true;
             this.btn_disp.Click += new System.EventHandler(this.btn_disp_Click_1);
             // 
-            // btn_upd_com
+            // btn_send_com
             // 
-            this.btn_upd_com.Location = new System.Drawing.Point(12, 13);
-            this.btn_upd_com.Name = "btn_upd_com";
-            this.btn_upd_com.Size = new System.Drawing.Size(75, 25);
-            this.btn_upd_com.TabIndex = 13;
-            this.btn_upd_com.Text = "Обновить";
-            this.btn_upd_com.UseVisualStyleBackColor = true;
-            this.btn_upd_com.Click += new System.EventHandler(this.btn_upd_com_Click);
+            this.btn_send_com.Location = new System.Drawing.Point(30, 83);
+            this.btn_send_com.Name = "btn_send_com";
+            this.btn_send_com.Size = new System.Drawing.Size(100, 20);
+            this.btn_send_com.TabIndex = 0;
+            this.btn_send_com.Text = "Отправить";
+            this.btn_send_com.UseVisualStyleBackColor = true;
+            this.btn_send_com.Click += new System.EventHandler(this.btn_send_com_Click);
+            // 
+            // txbx_send_com
+            // 
+            this.txbx_send_com.Location = new System.Drawing.Point(30, 57);
+            this.txbx_send_com.Name = "txbx_send_com";
+            this.txbx_send_com.Size = new System.Drawing.Size(100, 20);
+            this.txbx_send_com.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.richTextBox2);
+            this.groupBox1.Controls.Add(this.btn_send_com);
+            this.groupBox1.Controls.Add(this.txbx_send_com);
+            this.groupBox1.Enabled = false;
+            this.groupBox1.Location = new System.Drawing.Point(92, 79);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(482, 197);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(329, 19);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(136, 161);
+            this.richTextBox2.TabIndex = 2;
+            this.richTextBox2.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(684, 446);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.richTextBox1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -167,13 +196,14 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cmbx_speed_com;
         private System.Windows.Forms.ComboBox cmbx_select_com;
@@ -183,6 +213,10 @@
         private System.Windows.Forms.Button btn_open_com;
         public System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btn_upd_com;
+        private System.Windows.Forms.Button btn_send_com;
+        private System.Windows.Forms.TextBox txbx_send_com;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RichTextBox richTextBox2;
     }
 }
 

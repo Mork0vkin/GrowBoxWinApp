@@ -13,11 +13,17 @@ namespace Arduino_app
 {
     public partial class Form1 : Form
     {
-        string s = DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ");
+        bool isConnected = false;
 
         public Form1()
         {
             InitializeComponent();
+        }
+
+        // Код, выполняемый при загрузке формы
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            GetComPorts();
         }
 
 
@@ -32,7 +38,7 @@ namespace Arduino_app
 
             if (ports.Length == 0)
             {
-                richTextBox1.Text += "STATUS:" + s + "COM порты не найдены\n";
+                richTextBox1.Text += "STATUS:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "COM порты не найдены\n";
                 cmbx_select_com.Items.Clear(); // очищаем список
                 cmbx_select_com.ResetText();
             }
@@ -40,7 +46,7 @@ namespace Arduino_app
             {
                 cmbx_select_com.SelectedIndex = 0; // выбираем первый в списке COM порт
                 cmbx_speed_com.SelectedItem = "9600";
-                richTextBox1.Text += "STATUS:" + s + "Спискок COM портов получен\n";
+                richTextBox1.Text += "STATUS:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Спискок COM портов получен\n";
             }
         }
 
@@ -57,12 +63,16 @@ namespace Arduino_app
         private void OpenComPort() {
             try
             {
+                groupBox1.Enabled = true;
                 serialPort1.BaudRate = (int.Parse((string)cmbx_speed_com.SelectedItem));
                 serialPort1.PortName = ((string)cmbx_select_com.SelectedItem);
                 serialPort1.Open();
                 btn_open_com.Text = "Отключиться";
-                groupBox1.Enabled = true;
-                richTextBox1.Text += "STATUS:" + s + "Подключение выполнено\n";
+                richTextBox1.Text += "STATUS:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Подключение выполнено\n";
+                isConnected = true;
+
+                //string data = serialPort1.ReadExisting();
+                //richTextBox2.Text += data + "\n";
             }
             catch (Exception er)
             {
@@ -71,29 +81,28 @@ namespace Arduino_app
         }
 
 
-        //Получаем данные с Ардуино
-        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        // Функция отключения от порта
+        private void CloseComPort()
         {
-           //
+            try
+            {
+                isConnected = false;
+                serialPort1.Close();
+                btn_open_com.Text = "Подключиться";
+                groupBox1.Enabled = false;
+                richTextBox1.Text += "STATUS:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Подключение закрыто\n";
+            }
+            catch (Exception er)
+            {
+                Error(er);
+            }
         }
+
 
         //Кнопка подключения к Ардуине
         private void btn_open_com_Click_1(object sender, EventArgs e)
         {
-            if (btn_open_com.Text == "Подключиться")
-            {
-                OpenComPort();
-
-                    string inf = serialPort1.ReadLine();
-                    richTextBox1.Text += inf;
-                }
-            else
-            {
-                serialPort1.Close();
-                btn_open_com.Text = "Подключиться";
-                groupBox1.Enabled = false;
-                richTextBox1.Text += "STATUS:" + s + "Подключение закрыто\n";
-            }
+            if (!isConnected) { OpenComPort(); } else { CloseComPort(); }
         }
 
 
@@ -103,7 +112,7 @@ namespace Arduino_app
             try
             {
                 System.Diagnostics.Process.Start("devmgmt.msc");
-                richTextBox1.Text += "STATUS:" + s + "Был открыт Диспетчер усройств\n";
+                richTextBox1.Text += "STATUS:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Был открыт Диспетчер усройств\n";
             }
             catch (Exception er)
             {
@@ -111,16 +120,23 @@ namespace Arduino_app
             }
         }
 
+
         // Кнопка обновления/получения списка COM портов
         private void btn_upd_com_Click(object sender, EventArgs e)
         {
             GetComPorts();
         }
 
-        // Код, выполняемый при загрузке формы
-        private void Form1_Load(object sender, EventArgs e)
+        
+        //Кнопка отправки команды в Arduino
+        private void btn_send_com_Click(object sender, EventArgs e)
         {
-            GetComPorts();
+            string c = txbx_send_com.Text;
+            serialPort1.Write(c);
+            richTextBox1.Text += "STATUS:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Команда отправлена\n";
         }
+
+
+        
     }
 }
