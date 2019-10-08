@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Threading;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.IO.Ports;
 using System.Windows.Forms;
 
@@ -34,6 +28,7 @@ namespace Arduino_app
             GetComPorts();
             serialPort1.ReadTimeout = 1000;
             serialPort1.WriteTimeout = 1000;
+            serialPort1.Encoding = System.Text.Encoding.UTF8;
         }
 
 
@@ -48,7 +43,7 @@ namespace Arduino_app
 
             if (ports.Length == 0)
             {
-                richTextBox1.Text += "PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "COM порты не найдены\n";
+                System.Console.WriteLine("PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "COM порты не найдены");
                 cmbx_select_com.Items.Clear(); // очищаем список
                 cmbx_select_com.ResetText();
             }
@@ -56,16 +51,14 @@ namespace Arduino_app
             {
                 cmbx_select_com.SelectedIndex = 0; // выбираем первый в списке COM порт
                 cmbx_speed_com.SelectedItem = "9600";
-                richTextBox1.Text += "PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Спискок COM портов получен\n";
+                System.Console.WriteLine("PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Спискок COM портов получен");
             }
         }
 
 
         // Функция вывода ошибки в текстовую область
         private void Error(Exception er){
-            richTextBox1.Text += "=======================ОШИБКА=======================\n";
-            richTextBox1.Text += er.ToString() + "\n";
-            richTextBox1.Text += "=======================ОШИБКА=======================\n";
+            System.Console.WriteLine(er.ToString() + "");
         }
 
 
@@ -75,7 +68,7 @@ namespace Arduino_app
             {
                 if (cmbx_select_com.Text == "" || cmbx_speed_com.Text == "")
                 {
-                    richTextBox1.Text += "PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Не выбраны настройки подключения к Arduino\n";
+                    System.Console.WriteLine("PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Не выбраны настройки подключения к Arduino");
                 }
                 else {
                     
@@ -84,7 +77,7 @@ namespace Arduino_app
                     serialPort1.PortName = ((string)cmbx_select_com.SelectedItem);
                     serialPort1.Open();
                     btn_open_com.Text = "Отключиться";
-                    richTextBox1.Text += "PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Подключение выполнено\n";
+                    System.Console.WriteLine("PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Подключение выполнено");
                     isConnected = true;
 
                 }
@@ -105,7 +98,7 @@ namespace Arduino_app
                 serialPort1.Close();
                 btn_open_com.Text = "Подключиться";
                 groupBox1.Enabled = false;
-                richTextBox1.Text += "PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Подключение закрыто\n";
+                System.Console.WriteLine("PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Подключение закрыто");
             }
             catch (Exception er)
             {
@@ -120,7 +113,7 @@ namespace Arduino_app
             if (!isConnected) {
                 OpenComPort();
                 Thread.Sleep(500);
-                richTextBox1.Text += serialPort1.ReadExisting();
+                System.Console.WriteLine(serialPort1.ReadExisting());
             } else {
                 CloseComPort();
             }
@@ -133,7 +126,7 @@ namespace Arduino_app
             try
             {
                 System.Diagnostics.Process.Start("devmgmt.msc");
-                richTextBox1.Text += "PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Был открыт Диспетчер усройств\n";
+                System.Console.WriteLine("PC:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Был открыт Диспетчер усройств");
             }
             catch (Exception er)
             {
@@ -150,13 +143,13 @@ namespace Arduino_app
 
         
         //Кнопка отправки команды в Arduino
-        private void btn_send_com_Click(object sender, EventArgs e)
+        private void btn_led_off_Click(object sender, EventArgs e)
         {
             try
             {
-                serialPort1.WriteLine("led1 on;");
+                serialPort1.WriteLine("led1 off;");
                 Thread.Sleep(500);
-                richTextBox1.Text += serialPort1.ReadLine();
+                System.Console.WriteLine(serialPort1.ReadLine());
                 //очищаем буфер обмена
                 serialPort1.DiscardInBuffer();
                 serialPort1.DiscardOutBuffer();
@@ -167,11 +160,22 @@ namespace Arduino_app
             }
         }
 
-        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            //хз пока как вытащить хотя бы привествие при подключнии к ардуино
-            
-        }
 
+        private void button_led_on_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.WriteLine("led1 on;");
+                Thread.Sleep(500);
+                System.Console.WriteLine(serialPort1.ReadLine());
+                //очищаем буфер обмена
+                serialPort1.DiscardInBuffer();
+                serialPort1.DiscardOutBuffer();
+            }
+            catch (Exception er)
+            {
+                Error(er);
+            }
+        }
     }
 }
