@@ -40,9 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_disp = new System.Windows.Forms.Button();
             this.btn_send_com = new System.Windows.Forms.Button();
-            this.txbx_send_com = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +62,10 @@
             // 
             // serialPort1
             // 
+            this.serialPort1.DtrEnable = true;
             this.serialPort1.ReadBufferSize = 2048;
+            this.serialPort1.ReadTimeout = 1000;
+            this.serialPort1.WriteTimeout = 1000;
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // groupBox2
@@ -159,26 +160,17 @@
             // 
             // btn_send_com
             // 
-            this.btn_send_com.Location = new System.Drawing.Point(106, 95);
+            this.btn_send_com.Location = new System.Drawing.Point(6, 12);
             this.btn_send_com.Name = "btn_send_com";
-            this.btn_send_com.Size = new System.Drawing.Size(118, 40);
+            this.btn_send_com.Size = new System.Drawing.Size(127, 31);
             this.btn_send_com.TabIndex = 0;
-            this.btn_send_com.Text = "Отправить команду";
+            this.btn_send_com.Text = "Выключить свет";
             this.btn_send_com.UseVisualStyleBackColor = true;
             this.btn_send_com.Click += new System.EventHandler(this.btn_send_com_Click);
             // 
-            // txbx_send_com
-            // 
-            this.txbx_send_com.Location = new System.Drawing.Point(106, 69);
-            this.txbx_send_com.Name = "txbx_send_com";
-            this.txbx_send_com.Size = new System.Drawing.Size(118, 20);
-            this.txbx_send_com.TabIndex = 1;
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btn_send_com);
-            this.groupBox1.Controls.Add(this.txbx_send_com);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -187,15 +179,6 @@
             this.groupBox1.Size = new System.Drawing.Size(343, 197);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(136, 53);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "ON или OFF";
             // 
             // Form1
             // 
@@ -215,7 +198,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -232,9 +214,7 @@
         public System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btn_upd_com;
         private System.Windows.Forms.Button btn_send_com;
-        private System.Windows.Forms.TextBox txbx_send_com;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
     }
 }
 
