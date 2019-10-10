@@ -43,7 +43,7 @@ namespace Arduino_app
 
             if (ports.Length == 0)
             {
-                richTextBox1.Text += ("SYSTEM:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "COM порты не найдены! Переподключите устройство и обновите список \n");
+                richTextBox1.Text += ("SYSTEM:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "COM порты не найдены! Переподключите устройство и обновите список COM-портов \n");
                 cmbx_select_com.Items.Clear(); // очищаем список
                 cmbx_select_com.ResetText();
                 btn_open_com.Enabled = false;
@@ -52,7 +52,7 @@ namespace Arduino_app
             {
                 cmbx_select_com.SelectedIndex = 0; // выбираем первый в списке COM порт
                 cmbx_speed_com.SelectedItem = "9600";
-                richTextBox1.Text += ("SYSTEM:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Спискок COM портов получен \n");
+                richTextBox1.Text += ("SYSTEM:" + DateTime.Now.ToString(" [dd.MM.yy] [HH:mm:ss]  -  ") + "Спискок COM-портов получен \n");
                 btn_open_com.Enabled = true;
             }
         }
@@ -149,7 +149,7 @@ namespace Arduino_app
         {
             try
             {
-                serialPort1.WriteLine("led1 off;");
+                serialPort1.WriteLine("led off;");
                 Thread.Sleep(500);
                 richTextBox1.Text += (serialPort1.ReadLine());
                 //очищаем буфер обмена
@@ -167,7 +167,7 @@ namespace Arduino_app
         {
             try
             {
-                serialPort1.WriteLine("led1 on;");
+                serialPort1.WriteLine("led on;");
                 Thread.Sleep(500);
                 richTextBox1.Text += (serialPort1.ReadLine());
                 //очищаем буфер обмена
@@ -178,6 +178,16 @@ namespace Arduino_app
             {
                 Error(er);
             }
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
