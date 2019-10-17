@@ -20,6 +20,4 @@
 
 🥬 Схема подключения модулей к Arduino
 ---
-![Image alt](Arduino/images/scheme.jpg)
-
-https://github.com/Mork0vkin/GrowBoxWinApp/raw/master/scheme.jpg
+![Схема подключения модулей к Arduino](Arduino/images/scheme.jpg)
