@@ -20,3 +20,8 @@
 
 
 🍏🍎🍐🍊🍋🍌🍉🍇🍓🍈🍒🍑🍐🍍🥥🥝🍅🍆🥑🥦🥬🍞🥒🌶️🌽🥕🧅🧄🥔
+
+
+![Иллюстрация к проекту](https://github.com/Mork0vkin/GrowBoxWinApp/raw/master/scheme.jpg)
+
+![Image alt](https://github.com/Mork0vkin/GrowBoxWinApp/raw/master/scheme.jpg)
