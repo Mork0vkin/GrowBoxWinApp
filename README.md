@@ -16,15 +16,15 @@
 
 🥬 Скетчи
 ---
-Скетч без функции управления с компьютера [GrowBox_PC.ino](Arduino/GrowBox_no_PC/GrowBox_PC.ino "Открыть код")
-Скетч с функцией управления с компьютера [GrowBox_PC_beta.ino](USB Arduino/GrowBox_PC_beta/GrowBox_PC_beta.ino "Открыть код")
+ - Скетч без функции управления с компьютера [GrowBox_PC.ino](Arduino/GrowBox_no_PC/GrowBox_PC.ino "Открыть код")
+ - Скетч с функцией управления с компьютера [GrowBox_PC_beta.ino](USB Arduino/GrowBox_PC_beta/GrowBox_PC_beta.ino "Открыть код")
 
 🥬 Библиотеки
 ---
-[ArduinoThread](Arduino/libraries/ArduinoThread.zip "Скачать")
-[DS3231](Arduino/libraries/DS3231.zip "Скачать")
-[LCD_1602_RUS.zip](Arduino/libraries/LCD_1602_RUS.zip "Скачать")
-[LiquidCrystal_I2C](Arduino/libraries/LiquidCrystal_I2C_V112.zip "Скачать")
+ - [ArduinoThread](Arduino/libraries/ArduinoThread.zip "Скачать")
+ - [DS3231](Arduino/libraries/DS3231.zip "Скачать")
+ - [LCD_1602_RUS.zip](Arduino/libraries/LCD_1602_RUS.zip "Скачать")
+ - [LiquidCrystal_I2C](Arduino/libraries/LiquidCrystal_I2C_V112.zip "Скачать")
 
 
 🥬 Схема подключения модулей к Arduino
