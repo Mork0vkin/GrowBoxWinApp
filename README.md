@@ -18,6 +18,6 @@
 Используемые библиотеки в скетче [ТУТ](https://github.com/Mork0vkin/GrowBoxWinApp/raw/master/ "Скоро выложу") ((скоро выложу))
 
 
-🥬 Схема подключения модулей к Arduino:
+🥬 Схема подключения модулей к Arduino
 ---
 ![Image alt](https://github.com/Mork0vkin/GrowBoxWinApp/raw/master/scheme.jpg)
