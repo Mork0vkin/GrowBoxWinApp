@@ -156,6 +156,7 @@ void poliv () {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ФУНКЦИЯ ЗАПУСКА ОСВЕЩЕНИЯ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 void led_on_off () {
+  Serial.println("ARDUINO: [" + Date_str + "] [" + Time_str + "] -  Проверка времени для освещения...");
   if (Hor >= 9 && Hor < 22)
   {
     digitalWrite(LED_PIN, LOW);
@@ -178,13 +179,14 @@ void fan_on_off () {
   lcd.print(rtc.getTemp());
   lcd.setCursor(5, 0);
   lcd.print(L"\3");
+  Serial.println("ARDUINO: [" + Date_str + "] [" + Time_str + "] -  Проверка температуры...");
   if (lrint(rtc.getTemp()) >= MAX_TEMP)
   {
     digitalWrite(FAN_OUT_PIN, LOW);
     digitalWrite(FAN_IN_PIN, LOW);
     Serial.println("ARDUINO: [" + Date_str + "] [" + Time_str + "] -  Высокая температура воздуха. Вентиляторы запущены");
   }
-  else if (lrint(rtc.getTemp()) <= MIN_TEMP){
+  else {
     digitalWrite(FAN_OUT_PIN, HIGH);
     digitalWrite(FAN_IN_PIN, HIGH);
     Serial.println("ARDUINO: [" + Date_str + "] [" + Time_str + "] -  Низкая температура воздуха. Вентиляторы выключены");
